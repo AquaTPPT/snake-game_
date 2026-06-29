@@ -1,0 +1,19 @@
+ x Keyboard implementation
+
+ x implement static methods for Math.Random
+
+ SNAKE:
+
+ x nest SnakeBody
+
+ - make SnakeBody move with the SnakeHead
+
+ - make moving mechanics to SnakeHead
+
+ OBSTACLES:
+
+ - Decide whether to implement obstacles or not
+
+ FRUIT:
+
+ - implement fruit catching mechanic

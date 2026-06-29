@@ -1,0 +1,54 @@
+package com.aquatp.area;
+
+import com.codeforall.simplegraphics.graphics.*;
+
+
+public class Grid {
+    private Rectangle grid;
+
+    public static final int PADDING = 10;
+
+    private int cols;
+    private int rows;
+    public static final int CELLSIZE = 15;
+
+
+    public Grid(int cols, int rows) {
+        this.cols = cols;
+        this.rows = rows;
+        grid = new Rectangle(PADDING, PADDING, cols * CELLSIZE, rows * CELLSIZE);
+    }
+
+    public void draw() {
+        grid.draw();
+    }
+
+    public Rectangle getGrid() {
+        return grid;
+    }
+
+    public int getCellsize() {return CELLSIZE; }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int rowToX() { return cols * CELLSIZE; }
+
+    public int colToY() { return rows * CELLSIZE; }
+
+    public int getGridCenterX() {
+        int center = PADDING + (cols * CELLSIZE) / 2 - CELLSIZE / 2;
+        System.out.println("center X: " + center);
+        return center;
+    }
+
+    public int getGridCenterY() { int center = PADDING + (rows * CELLSIZE) / 2 - CELLSIZE / 2;
+        System.out.println("Center Y: " + center);
+        return center;
+    }
+}
