@@ -48,12 +48,22 @@ public class KeyboardHandlerImpl implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent e) {
         switch (e.getKey()) {
-            case KeyboardEvent.KEY_W -> snake.setDirection(Direction.UP);
-            case KeyboardEvent.KEY_S -> snake.setDirection(Direction.DOWN);
-            case KeyboardEvent.KEY_A -> snake.setDirection(Direction.LEFT);
-            case KeyboardEvent.KEY_D -> snake.setDirection(Direction.RIGHT);
+            case KeyboardEvent.KEY_W -> {
+                snake.getSnakeHead().setDirection(Direction.UP);
+            }
+            case KeyboardEvent.KEY_S -> {
+                snake.getSnakeHead().setDirection(Direction.DOWN);
+            }
+            case KeyboardEvent.KEY_A -> {
+                snake.getSnakeHead().setDirection(Direction.LEFT);
+            }
+            case KeyboardEvent.KEY_D -> {
+                snake.getSnakeHead().setDirection(Direction.RIGHT);
+            }
             // For testing purposes - remove later!
-            case KeyboardEvent.KEY_J -> fruit.newPosition();
+            case KeyboardEvent.KEY_J -> {
+                fruit.newPosition();
+            }
         }
     }
 

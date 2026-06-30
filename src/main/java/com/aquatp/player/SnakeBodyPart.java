@@ -6,22 +6,33 @@ import com.aquatp.interfaces.Movable;
 import com.codeforall.simplegraphics.graphics.Color;
 import com.codeforall.simplegraphics.graphics.Rectangle;
 
+import java.io.InvalidObjectException;
+
 import static com.aquatp.area.Grid.CELLSIZE;
+import static com.aquatp.area.Grid.PADDING;
 
 public class SnakeBodyPart implements Movable {
     private Rectangle body;
     private Grid grid;
     private int col, row;
-    private Direction direction;
+    private Direction currentDirection, nextDirection;
 
     public SnakeBodyPart(Grid grid) {
         this.grid = grid;
-        spawn();
     }
 
-    private void spawn() {
-        body = new Rectangle();
-        body.grow(CELLSIZE, CELLSIZE);
+    public void spawnStarter(int col, int row) {
+        body = new Rectangle(col * CELLSIZE + PADDING, row * CELLSIZE + PADDING, CELLSIZE, CELLSIZE);
+        setCol(col);
+        setRow(row);
+        body.setColor(Color.BLUE);
+        body.fill();
+    }
+
+    public void spawn(int col, int row) {
+        body = new Rectangle(col * CELLSIZE + PADDING, row * CELLSIZE + PADDING, CELLSIZE, CELLSIZE);
+        setCol(col);
+        setRow(row);
         body.setColor(Color.BLUE);
         body.fill();
     }
@@ -43,13 +54,19 @@ public class SnakeBodyPart implements Movable {
     }
 
     @Override
-    public void move() {
-        switch (direction) {
+    public void move() throws IllegalArgumentException {
+        switch (currentDirection) {
             case UP -> moveUp();
             case DOWN -> moveDown();
             case LEFT -> moveLeft();
             case RIGHT -> moveRight();
+            case null -> System.out.println("Movement is null!");
+            case NONE -> System.out.println("Movement is NONE! ");
         }
+    }
+
+    public void updateDirection() {
+        currentDirection = nextDirection;
     }
 
     @Override
@@ -76,13 +93,19 @@ public class SnakeBodyPart implements Movable {
         col++;
     }
 
-    @Override
-    public Direction getDirection() {
-        return null;
+    public Direction getNextDirection() {
+        return nextDirection;
     }
 
-    @Override
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public Direction getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public void setCurrentDirection(Direction direction) {
+        this.currentDirection = direction;
+    }
+
+    public void setNextDirection(Direction direction) {
+        this.nextDirection = direction;
     }
 }

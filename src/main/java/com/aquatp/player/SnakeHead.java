@@ -56,12 +56,10 @@ public class SnakeHead implements Movable {
         col++;
     }
 
-    @Override
     public Direction getDirection() {
-        return null;
+        return direction;
     }
 
-    @Override
     public void setDirection(Direction direction) {
         this.direction = direction;
     }

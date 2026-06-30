@@ -20,21 +20,27 @@ public class Game implements Runnable {
         grid.draw();
         player = new Snake(this.grid);
         fruit = new Fruit(this.grid);
-        gameChecker = new GameChecker(player, fruit);
+        gameChecker = new GameChecker(player, fruit, grid);
         k = new KeyboardHandlerImpl(player, fruit);
     }
 
     @Override
     public void run() {
-        System.out.println("hi!");
+        System.out.println("hi! Debugger!");
         while (true) {
             try {
-                player.moveHead();
-                gameChecker.fruitCollisionChecker();
-                gameChecker.gameOverChecker();
-                Thread.sleep(100);
+                if (!gameChecker.gameOverChecker()) {
+                    player.moveHead();
+                    player.moveSnakeBody();
+                    gameChecker.fruitCollisionChecker();
+                    gameChecker.gameOverChecker();
+                    Thread.sleep(200);
+                }
+                else {
+                    gameChecker.endGame();
+                }
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }

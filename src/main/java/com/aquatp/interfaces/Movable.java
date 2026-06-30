@@ -4,7 +4,7 @@ import com.aquatp.enums.Direction;
 
 public interface Movable {
 
-    void move();
+    void move() throws IllegalArgumentException;
 
     void moveUp();
 
@@ -14,7 +14,4 @@ public interface Movable {
 
     void moveRight();
 
-    Direction getDirection();
-
-    void setDirection(Direction direction);
 }
