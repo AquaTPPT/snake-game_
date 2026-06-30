@@ -1,10 +1,9 @@
 package com.aquatp.controls;
 
+import com.aquatp.enums.Direction;
 import com.aquatp.objects.Fruit;
 import com.aquatp.player.Snake;
 import com.codeforall.simplegraphics.keyboard.*;
-
-import java.awt.event.KeyEvent;
 
 public class KeyboardHandlerImpl implements KeyboardHandler {
     private Snake snake;
@@ -17,7 +16,7 @@ public class KeyboardHandlerImpl implements KeyboardHandler {
         this.k = new Keyboard(this);
 
         KeyboardEvent goUp = new KeyboardEvent();
-        goUp.setKey(KeyboardEvent.KEY_I);
+        goUp.setKey(KeyboardEvent.KEY_W);
         goUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         KeyboardEvent goDown = new KeyboardEvent();
@@ -49,18 +48,18 @@ public class KeyboardHandlerImpl implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent e) {
         switch (e.getKey()) {
-            case KeyboardEvent.KEY_I -> snake.moveUp();
-            case KeyboardEvent.KEY_S -> snake.moveDown();
-            case KeyboardEvent.KEY_A -> snake.moveLeft();
-            case KeyboardEvent.KEY_D -> snake.moveRight();
+            case KeyboardEvent.KEY_W -> snake.setDirection(Direction.UP);
+            case KeyboardEvent.KEY_S -> snake.setDirection(Direction.DOWN);
+            case KeyboardEvent.KEY_A -> snake.setDirection(Direction.LEFT);
+            case KeyboardEvent.KEY_D -> snake.setDirection(Direction.RIGHT);
             // For testing purposes - remove later!
             case KeyboardEvent.KEY_J -> fruit.newPosition();
         }
-        System.out.println("pressed a key: " + e.getKey());
     }
 
     @Override
     public void keyReleased(KeyboardEvent e) {
 
     }
+
 }

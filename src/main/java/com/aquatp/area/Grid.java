@@ -42,13 +42,10 @@ public class Grid {
     public int colToY() { return rows * CELLSIZE; }
 
     public int getGridCenterX() {
-        int center = PADDING + (cols * CELLSIZE) / 2 - CELLSIZE / 2;
-        System.out.println("center X: " + center);
-        return center;
+        return cols / 2;
     }
 
-    public int getGridCenterY() { int center = PADDING + (rows * CELLSIZE) / 2 - CELLSIZE / 2;
-        System.out.println("Center Y: " + center);
-        return center;
+    public int getGridCenterY() {
+        return rows / 2;
     }
 }

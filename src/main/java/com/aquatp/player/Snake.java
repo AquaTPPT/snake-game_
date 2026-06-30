@@ -1,6 +1,7 @@
 package com.aquatp.player;
 
 import com.aquatp.area.Grid;
+import com.aquatp.enums.Direction;
 import com.aquatp.factories.SnakeBodyFactory;
 import com.aquatp.interfaces.Movable;
 import com.codeforall.simplegraphics.graphics.Color;
@@ -11,66 +12,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.aquatp.area.Grid.CELLSIZE;
-import static com.aquatp.area.Grid.PADDING;
 
-public class Snake implements Movable {
+public class Snake {
     private SnakeBodyFactory sbf;
-    private List<SnakeBody> snakeBody;
-    private Rectangle snakeHead;
-    private Grid grid;
-    private int xPos, yPos;
+    private List<SnakeBodyPart> snakeBodyPart;
+    private SnakeHead snakeHead;
+    private SnakeMovement movement;
 
     public Snake(Grid grid) {
-        this.grid = grid;
-
-        xPos = grid.getGridCenterX();
-        yPos = grid.getGridCenterY();
-
-        snakeBody = new ArrayList<>();
-
-        sbf = new SnakeBodyFactory();
-        snakeHead = new Rectangle( grid.getGridCenterX(), grid.getGridCenterY(), CELLSIZE, CELLSIZE);
-        snakeHead.setColor(Color.ORANGE);
-        snakeHead.fill();
+        snakeBodyPart = new ArrayList<>();
+        movement = new SnakeMovement();
+        sbf = new SnakeBodyFactory(grid);
+        snakeHead = new SnakeHead(grid);
     }
 
     // create body parts
 
-    public void addSnakeBody() {
-        snakeBody.add(sbf.createBodyPart());
+    public void addBody() {
+        sbf.createBodyPart();
+    }
+
+    public void moveSnakeBody() {
+        for (SnakeBodyPart sb : snakeBodyPart) {
+            sb.move();
+        }
     }
 
     // snake movement
 
-    @Override
-    public void moveUp() {
-        snakeHead.translate( 0, - grid.getCellsize());
-        --yPos;
+    public void moveHead() {
+        switch (movement.getDirection()) {
+            case UP -> snakeHead.moveUp();
+            case DOWN -> snakeHead.moveDown();
+            case LEFT -> snakeHead.moveLeft();
+            case RIGHT -> snakeHead.moveRight();
+        }
     }
 
-    @Override
-    public void moveDown() {
-        snakeHead.translate(0, grid.getCellsize());
-        ++yPos;
+    /*
+    * getters and setters
+    */
+    public List<SnakeBodyPart> getSnakeBody() {
+        return snakeBodyPart;
     }
 
-    @Override
-    public void moveLeft() {
-        snakeHead.translate(-grid.getCellsize(), 0 );
-    }
-
-    @Override
-    public void moveRight() {
-        snakeHead.translate(grid.getCellsize(), 0 );
-    }
-
-    // getter
-
-    public List<SnakeBody> getSnakeBody() {
-        return snakeBody;
-    }
-
-    public Rectangle getSnakeHead() {
+    public SnakeHead getSnakeHead() {
         return snakeHead;
+    }
+
+    public Direction getDirection() {
+        return movement.getDirection();
+    }
+
+    public void setDirection(Direction direction) {
+        movement.setDirection(direction);
     }
 }

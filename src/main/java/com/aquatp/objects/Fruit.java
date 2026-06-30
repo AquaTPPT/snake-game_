@@ -11,40 +11,39 @@ import static com.aquatp.area.Grid.PADDING;
 public class Fruit {
     private Rectangle rectangle;
     private Grid grid;
-    private int xPos, yPos;
+    private int col, row;
 
     public Fruit(Grid grid) {
         this.grid = grid;
+        newGridPosition();
         rectangle = new Rectangle(
-            (Random.random(PADDING, (grid.getCols() - 1) * grid.getCellsize()) / grid.getCellsize()) * grid.getCellsize(),
-            (Random.random(PADDING, (grid.getRows() - 1) * grid.getCellsize()) / grid.getCellsize()) * grid.getCellsize(),
+            col * grid.getCellsize() + PADDING,
+            row * grid.getCellsize() + PADDING,
             grid.getCellsize(), grid.getCellsize());
         rectangle.setColor(Color.RED);
         rectangle.fill();
-        xPos = rectangle.getX();
-        yPos = rectangle.getY();
     }
 
     public void newPosition() {
-
+        int oldCol = col;
+        int oldRow = row;
+        newGridPosition();
         rectangle.translate(
-        (Random.random(PADDING, (grid.getCols() - 1) * grid.getCellsize()) / grid.getCellsize()) * grid.getCellsize() - rectangle.getX(),
-        (Random.random(PADDING, (grid.getRows() - 1) * grid.getCellsize()) / grid.getCellsize()) * grid.getCellsize() - rectangle.getY());
-
-        registerPosition();<
+        -(oldCol - col) * grid.getCellsize(),
+        -(oldRow - row) * grid.getCellsize());
     }
 
-    private void registerPosition() {
-        xPos = rectangle.getX();
-        yPos = rectangle.getY();
+    private void newGridPosition() {
+        col = Random.random(0, grid.getCols());
+        row = Random.random(0,grid.getRows());
     }
 
-    public int getX() {
-        return rectangle.getX();
+    public int getCol() {
+        return col;
     }
 
-    public int getY() {
-        return rectangle.getY();
+    public int getRow() {
+        return row;
     }
 
     

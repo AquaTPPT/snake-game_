@@ -2,7 +2,7 @@ package com.aquatp.area;
 
 import com.aquatp.objects.Fruit;
 import com.aquatp.player.Snake;
-import com.aquatp.player.SnakeBody;
+import com.aquatp.player.SnakeBodyPart;
 
 public class CollisionDetector {
     private Snake snake;
@@ -14,20 +14,22 @@ public class CollisionDetector {
     }
 
     public boolean scoreChecker() {
-        if (snake.getSnakeHead().getX() == fruit.getX() &&
-            snake.getSnakeHead().getY() == fruit.getY()) {
-            return true;
-        }
-        return false;
+            if (snake.getSnakeHead().getCol() == fruit.getCol() &&
+                    snake.getSnakeHead().getRow() == fruit.getRow()) {
+                System.out.println("score!");
+                return true;
+            }
+            return false;
     }
 
     public boolean gameOverChecker() {
-        for (SnakeBody sb : snake.getSnakeBody()) {
-            if (snake.getSnakeHead().getX() == sb.getCurrentX() &&
-            snake.getSnakeHead().getY() == sb.getCurrentY()) {
+        for (SnakeBodyPart sb : snake.getSnakeBody()) {
+            if (snake.getSnakeHead().getCol() == sb.getCol() &&
+            snake.getSnakeHead().getRow() == sb.getRow()) {
                 return true;
             }
         }
         return false;
     }
+
 }
